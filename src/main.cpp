@@ -123,6 +123,7 @@ void loop()
 
 
     if(status == ZERO_BALANCE && currentMillis - previousMillis1 >= interval1){
+      previousMillis1 = currentMillis;
       lcd.setCursor(0, 0);
       lcd.print("Please pay Kaspi QR");
       lcd.setCursor(0, 1);
