@@ -29,13 +29,13 @@ int status = ZERO_BALANCE;
 
 
 struct Names {
-  String name[7];
+  String name[8];
 };
 struct Prices {
-  int price[7];
+  int price[8];
 };
 struct Tanks {
-  float tank[7];
+  float tank[8];
 };
 Names names;
 Prices prices;
@@ -110,6 +110,7 @@ void setup()
 void loop()
 {
     unsigned long currentMillis = millis();
+    unsigned long currentMillis1 = millis();
     // Основной цикл Firebase
     app.loop();
     Database.loop();
@@ -122,8 +123,9 @@ void loop()
 
 
 
-    if(status == ZERO_BALANCE && currentMillis - previousMillis1 >= interval1){
-      previousMillis1 = currentMillis;
+    if(status == ZERO_BALANCE && currentMillis1 - previousMillis1 >= interval1){
+      previousMillis1 = currentMillis1;
+      Serial.println("print qr");
       lcd.setCursor(0, 0);
       lcd.print("Please pay Kaspi QR");
       lcd.setCursor(0, 1);
@@ -340,6 +342,7 @@ void getAllNameAndPrice(String jsonString){
 }
 
 void printAccount(String account1){
+  Serial.println("print account");
   // beepBuzzer();
   lcd.setCursor(0, 0);
   lcd.print("Balance: ");
@@ -353,6 +356,7 @@ void printAccount(String account1){
   }
 }
 void printNameAndPrice(String name, int prices){
+  Serial.println("print name and price");
   lcd.setCursor(0, 1);
   lcd.print("                    ");
   lcd.setCursor(0, 2);
@@ -419,7 +423,7 @@ void handleButtonClick(int index){
 
     case START_BUTTON:
         // Пример кода для запуска stepper на скорости 30000 STEPPER_START:0,18000,0
-        if(status == READY & currentSelect != 10){
+        if(status == READY && currentSelect != 10){
           Serial1.println("BUZZER:200");
           Serial.println("Клик на START_BUTTON");
           //Serial1.println("STEPPER_START:" + String(currentSelect)+",13000,0");
@@ -456,6 +460,7 @@ void handleButtonClick(int index){
 }
 
 void printCurrentVolume(double volume1){
+  Serial.println("print current volume");
   lcd.setCursor(0, 3);
   lcd.print("Current Volume: ");
   lcd.setCursor(16, 3);
